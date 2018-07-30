@@ -15,6 +15,7 @@ class Editor extends Component {
         editor.getSession().setMode('ace/mode/' + type);
         editor.setTheme('ace/theme/monokai');
         editor.getSession().setValue(content.content);
+        editor.setReadOnly(true)
 
         let timeout = null;
         const editorSession = editor.getSession();

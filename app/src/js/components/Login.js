@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { addAccessToken } from '../actions/index';
+import {
+    addAccessToken,
+    addSelectedBranch,
+} from '../actions/index';
 
 import CenteredRow from "./partials/CenteredRow";
 
@@ -15,6 +18,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        addSelectedBranch: branch => dispatch(addSelectedBranch(branch)),
         addAccessToken: token => dispatch(addAccessToken(token))
     };
 };
@@ -35,7 +39,7 @@ class ConnectedLogin extends Component {
 
     componentDidMount() {
         if (this.props.personal_access_token) {
-            this.props.history.push("/home");
+            this.props.history.push("/dashboard");
         }
         else {
             this.setState({ disabled: false });
@@ -56,7 +60,9 @@ class ConnectedLogin extends Component {
         );
         this.props.addAccessToken(this.state.personalToken);
         this.setState({ personalToken: "" });
-        this.props.history.push("/home");
+        sessionStorage.setItem('selected_branch', 'master')
+        this.props.addSelectedBranch(name);
+        this.props.history.push('/dashboard');
     }
 
     render() {

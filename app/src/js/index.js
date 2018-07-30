@@ -19,7 +19,6 @@ if (app) {
         <HashRouter>
             <App>
                 <Route exact path="/" component={Login} />
-                <Route path="/home" component={Home} />
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/workspace/:uuid" component={Workspace} />
             </App>

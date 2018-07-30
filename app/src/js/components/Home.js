@@ -107,6 +107,7 @@ export class ConnectedHome extends Component {
 
         request(getPath("repos", "git/refs/heads"), "GET")
             .then(({data}) => {
+                console.log(data)
                 this.props.addBranches(data)
             })
             .catch(e => {

@@ -168,7 +168,6 @@ class ConnectedWorkspace extends Component {
         return (<div>
             {this.renderLoading()}
             {this.renderWorkspace()}
-            {this.renderModal()}
         </div>);
     }
     renderLoading() {
@@ -215,12 +214,19 @@ class ConnectedWorkspace extends Component {
                         {name}
                     </li>);
                 })}
-                <li key={"save"} style={listItemStyles} className="list-group-item d-flex justify-content-between align-items-center">
-                    <button className="btn btn-primary" onClick={this.save.bind(this)}>Save</button>
-                </li>
-                <li key={"PR"} style={listItemStyles} className="list-group-item d-flex justify-content-between align-items-center">
-                    {this.renderBtnOrLink()}
-                </li>
+                    <li>
+                        <br/>
+                        <div style={{'text-align': 'center'}}>
+                            <button className="btn btn-sm btn-danger">WARNING</button>
+                        </div>
+                        <br/>
+                        <p style={{"color": "white", "padding": "15px"}}>
+                            These editors are in READONLY mode. You will not be able to make any changes to them, this is by design.
+                        
+                            To submit a change request, please refer to {" "}
+                            <a href="https://spectacles.surge.sh/#/" target="_blank">Spectacles</a>.
+                        </p>
+                    </li>
                 </ul>
             </div>
             <div className="right-col" style={rightColStyles}>
