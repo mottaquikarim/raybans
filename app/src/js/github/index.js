@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const GITHUB_API = "https://api.github.com";
 const OWNER = "mottaquikarim";
-const REPO = "spectacles";
+const REPO = "raybans";
 
 /*
  *  Given an API "prefix" (ie: repo, user, etc)
