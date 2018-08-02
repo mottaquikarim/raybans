@@ -68,7 +68,7 @@ class ConnectedLogin extends Component {
     render() {
         return (<CenteredRow>
             <div className="card text-white mb-12">
-                <div className="card-header">Login to Spectacles</div>
+                <div className="card-header">Login to Raybans</div>
                 <div className="card-body">
                     <h3 className="card-title">Personal Access Token</h3>
                     <p className="card-text">
