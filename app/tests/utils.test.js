@@ -6,6 +6,6 @@ const {getPath} = require('../src/js/github/index');
 
 describe('api path', () => {
     it('should default to mottaquikarim and raybans', () => {
-        expect(getPath('','')).toBe('//mottaquikarim/raybans/');
+        expect(getPath('','')).toBe('//mottaquikarim/spectacles/');
     })
 })
