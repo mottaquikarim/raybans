@@ -1,0 +1,15 @@
+sudo: required
+language: node_js
+node_js:
+  - "7"
+services:
+  - docker
+env:
+  global:
+    - SURGE_LOGIN=$SURGE_LOGIN
+    - SURGE_TOKEN=$SURGE_TOKEN
+deploy:
+  provider: script
+  script: make deploy 
+  on:
+    branch: master 

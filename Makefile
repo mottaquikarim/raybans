@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-app = spectacles
+app = raybans 
 
 cp-envvars:
 	cp ./envvars.sample ./envvars

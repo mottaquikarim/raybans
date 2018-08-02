@@ -1,9 +1,9 @@
 version: '2.1'
 services:
 
-  spectacles:
+  raybans:
     build:
       context: .
-      dockerfile: docker/spectacles/Dockerfile
+      dockerfile: docker/raybans/Dockerfile
     env_file: ${DOCKER_ENV_FILE:-envvars}
 
