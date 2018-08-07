@@ -75,39 +75,45 @@ class ConnectedDashboard extends Component {
             tags: {},
             all: [],
             selectedItems: {},
+
             loading: false,
+            setRepoView: false,
+            repoName: '',
             repo: null,
         }
 
         this.selectItem = this.selectItem.bind(this)
+        this.showRepoView = this.showRepoView.bind(this)
+        this.updateRepoName = this.updateRepoName.bind(this)
+
         this.buildRepo = this.buildRepo.bind(this)
         this.close = this.close.bind(this)
     }
 
     close(e) {
-        this.setState({loading: false, selectedItems: {}, repo: null,})
+        this.setState({loading: false, selectedItems: {}, repo: null, repoName: '', setRepoView: false, })
+    }
+
+    updateRepoName(e) {
+        this.setState({
+            repoName: e.target.value,
+        })
+    }
+
+    showRepoView(e) {
+        this.setState({
+            setRepoView: true,
+            loading: true,
+        })
     }
 
     buildRepo(e) {
-        console.log(this.state.selectedItems) 
-        this.setState({loading: true,})
-        /*
-        const makeRepo = request(
-            "/user/repos",
-            "POST",
-            {},
-            {},
-            {
-                "name": "PSET-"+(Date.now()),
-            }
-        );
-        const makeRepo = Promise.resolve();
-        makeRepo.then(({data}) => {
-            console.log(data)
-        })
-        */
+        this.setState({loading: true, setRepoView: false,})
 
-        const repoName = "PSET-"+(Date.now())
+        const repoName = this.state.repoName || "PSET-"+(Date.now())
+        if (!this.state.repoName) {
+            alert('repoName empty, defaulting to: ' + repoName);
+        }
         const {user, selectedItems} = this.state;
 
         const timeout = (timeout=1000) => new Promise(resolve => {
@@ -433,8 +439,10 @@ Each link below will take you to an individual practice problem set. Within each
             'justifyContent': 'center',
             'alignItems': 'center',
         }
-        const content = this.state.repo ? 
-            <strong style={{'textAlign': 'center'}}>
+
+        let content;
+        if (this.state.repo) {
+            content = (<strong style={{'textAlign': 'center'}}>
                 <a className="btn btn-success" href={this.state.repo} target="_blank">Click here to open your PSET</a>
                 <br/>
                 <a className="btn btn-success" href={this.state.repo+"/settings"} target="_blank">
@@ -442,8 +450,27 @@ Each link below will take you to an individual practice problem set. Within each
                 </a>
                 <br/>
                 <button className="btn btn-primary" onClick={this.close}>Go Back to Dashboard</button>
-            </strong> :
-            <div id="loading"></div>;
+            </strong>)
+        }
+        else if (this.state.setRepoView) {
+            content = <strong style={{'textAlign': 'center'}}>
+                <div className="form-group">
+                    <label htmlFor="repo-name">Repo Name</label>
+                    <input type="text"
+                           onChange={this.updateRepoName}
+                           className="form-control"
+                           id="repo-name"
+                           placeholder="Enter Github Repo Name" />
+                    <small className="form-text text-muted">Raybans will create this repo and pull chosen PSETs into it</small>
+                </div>
+                <br/>
+                <button className="btn btn-success" onClick={this.buildRepo}>Create PSET</button> {" "}
+                <button className="btn btn-primary" onClick={this.close}>Go Back to Dashboard</button>
+            </strong>
+        }
+        else {
+            content = <div id="loading"></div>;
+        }
 
         return (<div style={styles}>
             {content} 
@@ -465,7 +492,7 @@ Each link below will take you to an individual practice problem set. Within each
         };
 
         return (<button
-            onClick={this.buildRepo}
+            onClick={this.showRepoView}
             style={styles}
             className="btn btn-lg btn btn-success">Create PSET ({numKeys})</button>)
     }
